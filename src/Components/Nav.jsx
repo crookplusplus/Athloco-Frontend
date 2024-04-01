@@ -1,14 +1,40 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Athlogo from "../assets/athlogo.png";
 import { Link } from "react-router-dom";
 import { Dropdown } from "flowbite-react";
+import { HiMenu } from "react-icons/hi";
+import { CgClose } from "react-icons/cg";
 
 const Nav = () => {
   const [scroll, setScroll] = useState(false);
+  const [open, setOpen] = useState(false);
+  const menuRef = useRef(null);
+  
+  const handleResize = () => {
+    if (window.innerWidth > 768) {
+      setOpen(false);
+    }
+  };
+
+  const handleClickOutside = (e) => {
+    if (menuRef.current && !menuRef.current.contains(e.target)) {
+      setOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop = window.pageYOffset;
+      const scrollTop = window.scrollY;
 
       if (scrollTop > 0) {
         setScroll(true);
@@ -32,9 +58,16 @@ const Nav = () => {
         <div className="flex justify-between py-4">
           <div className="flex flex-row justify-between items-center">
             <img src={Athlogo} className="w-14 rounded" />
-            <span className="text-2xl font-pop ml-4">Athloco</span>
+            <span className="text-2xl font-semibold font-pop ml-4 hover:text-athloco hover:text-3xl duration-500">Athloco</span>
           </div>
-          <ul className="flex justify-between items-center">
+          <div className="w-16 absolute md:hidden right-2 top-8 hover:text-athloco duration-500 cursor-pointer"
+            onClick={() => setOpen(!open)}
+          >
+          {open ? (<CgClose className="text-2xl stroke-2"/>) : (<HiMenu className="text-2xl"/>)}
+          </div>
+          <ul className={`md:flex md:justify-between md:items-center   ${open ? `${scroll ? "bg-black1" : "bg-white"} absolute top-2 pb-2 duration-500 ease-in-out transform translate-y-20 opacity-100 rounded-b-md w-1/2` : "hidden -translate-y-2"} `}
+            ref={menuRef}
+          >
             <li className="px-4 text-lg hover:text-athloco hover:text-xl duration-500">
               <Link>Home</Link>
             </li>
