@@ -8,8 +8,8 @@ const Layout = (props) => {
     <div className="bg-bgcolor w-full min-h-screen">
       <div className="">
         <Nav />
-        <div className="flex justify-center top-24 m-10">{props.children}</div>
       </div>
+        <div className="flex justify-center mt-20 mx-10">{props.children}</div>
       <footer className="flex flex-col items-center">
         <hr className="border-0 bg-tan w-11/12 h-0.5 my-5" />
         <SocialButtons />

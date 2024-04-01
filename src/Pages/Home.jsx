@@ -1,5 +1,6 @@
 import React from "react";
 import AthlocoImage from "/bigAthlogo.png";
+import { Link } from "react-router-dom";
 import { Button } from "flowbite-react";
 import { TbPlayVolleyball } from "react-icons/tb";
 import { GiTrophyCup } from "react-icons/gi";
@@ -22,12 +23,14 @@ const Home = () => {
           </span>
         </p>
         <div className="flex flex-row justify-center">
-          <Button className="bg-athloco text-black mx-5 hover:enabled:bg-athloco transition ease-in-out hover:scale-110 duration-500 hover:text-white ">
-          <GiTrophyCup className=" stroke-2 text-md mr-2"/>
-            Find Tournaments
-          </Button>
+          <Link to="/tournaments">
+            <Button className="bg-athloco text-black mx-5 hover:enabled:bg-athloco transition ease-in-out hover:scale-110 duration-500 hover:text-white ">
+              <GiTrophyCup className=" stroke-2 text-md mr-2" />
+              Find Tournaments
+            </Button>
+          </Link>
           <Button className="bg-athloco text-black mx-5 hover:enabled:bg-athloco transition ease-in-out hover:scale-110 duration-500 hover:text-white">
-            <TbPlayVolleyball className=" stroke-2 text-lg mr-2"/>
+            <TbPlayVolleyball className=" stroke-2 text-lg mr-2" />
             Find Trainers
           </Button>
         </div>
